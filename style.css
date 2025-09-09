@@ -1,0 +1,151 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at center, #0d1b2a, #000000);
+  overflow: hidden;
+}
+
+/* Stars */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  background: transparent;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle infinite alternate;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
+}
+@keyframes twinkle {
+  from { opacity: 0.2; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+/* Shooting star */
+.shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(270deg, white, rgba(255,255,255,0));
+  border-radius: 50%;
+  opacity: 0;
+  transform: rotate(-45deg);
+  filter: drop-shadow(0 0 6px white);
+  animation: shoot 2s linear forwards;
+}
+@keyframes shoot {
+  0% {
+    opacity: 1;
+    transform: translate(0,0) rotate(-45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-600px,600px) rotate(-45deg);
+  }
+}
+
+/* Butterflies */
+.butterflies {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+.butterfly-wrapper {
+  position: absolute;
+  animation: fly linear infinite;
+}
+.butterfly {
+  font-size: 2rem;
+  display: inline-block;
+  animation: sway ease-in-out infinite;
+}
+@keyframes fly {
+  from { transform: translateY(110vh); }
+  to { transform: translateY(-110vh); }
+}
+@keyframes sway {
+  0% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-30px) rotate(-10deg); }
+  50% { transform: translateX(30px) rotate(10deg); }
+  75% { transform: translateX(-20px) rotate(-5deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+/* Tree branches on sides */
+.branches {
+  position: fixed;
+  top: 0;
+  width: 20vw;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.25;
+  z-index: -1;
+  pointer-events: none;
+}
+.left-branches {
+  left: 0;
+  background-image: url('https://i.ibb.co/4YvnL4z/tree-branch-left.png');
+}
+.right-branches {
+  right: 0;
+  background-image: url('https://i.ibb.co/k1F9qss/tree-branch-right.png');
+}
+
+/* Main Content */
+.container {
+  text-align: center;
+  padding: 50px 20px;
+  position: relative;
+  z-index: 10;
+}
+button {
+  margin: 10px;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: #ffb6f0;
+  color: #222;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 15px rgba(255,182,240,0.5);
+}
+button:hover {
+  background: #ff80e0;
+  transform: scale(1.05);
+}
+
+/* Notes */
+#notesContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.note {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
+  padding: 15px 25px;
+  margin: 10px 0;
+  border-radius: 15px;
+  max-width: 600px;
+  animation: fadeIn 0.8s ease;
+  backdrop-filter: blur(5px);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
