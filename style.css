@@ -113,9 +113,13 @@ button:hover {
   padding: 15px 25px;
   margin: 10px 0;
   border-radius: 15px;
-  max-width: 600px;
+  width: 90%;           /* responsive width */
+  max-width: 600px;     /* controls line length */
   animation: fadeIn 0.8s ease;
   backdrop-filter: blur(5px);
+  word-wrap: break-word; /* ensures long words wrap */
+  overflow-wrap: break-word;
+  white-space: pre-wrap; /* preserves line breaks if any */
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -133,7 +137,7 @@ button:hover {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  z-index: 30;
+  z-index: 50; /* higher than sidebar */
   background: transparent;
 }
 .revisit-btn span {
@@ -158,8 +162,8 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   transition: left 0.3s ease;
-  z-index: 25;
-  overflow-y: auto;
+  z-index: 40; /* below hamburger */
+  overflow-y: auto; /* scrollable if notes too long */
 }
 .sidebar.open {
   left: 0;
@@ -170,7 +174,21 @@ button:hover {
   padding: 10px;
   cursor: pointer;
   transition: background 0.2s;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 .sidebar .note-item:hover {
   background: rgba(255,255,255,0.2);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 500px) {
+  .note {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+  .sidebar {
+    width: 80%;
+  }
 }
