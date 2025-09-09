@@ -83,27 +83,6 @@ body {
   100% { transform: translateX(0) rotate(0deg); }
 }
 
-/* Tree branches on sides */
-.branches {
-  position: fixed;
-  top: 0;
-  width: 20vw;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.25;
-  z-index: -1;
-  pointer-events: none;
-}
-.left-branches {
-  left: 0;
-  background-image: url('https://i.ibb.co/4YvnL4z/tree-branch-left.png');
-}
-.right-branches {
-  right: 0;
-  background-image: url('https://i.ibb.co/k1F9qss/tree-branch-right.png');
-}
-
 /* Main Content */
 .container {
   text-align: center;
@@ -148,4 +127,26 @@ button:hover {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hamburger revisit button */
+.revisit-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 35px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 20;
+  background: transparent;
+}
+.revisit-btn span {
+  display: block;
+  height: 4px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
 }
