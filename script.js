@@ -1,13 +1,16 @@
 let notes = [];
-let shownNotes = []; // stores notes that have been displayed
+let shownNotes = [];
 
-// Load notes from JSON
+// Load notes
 fetch('notes.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => { notes = data; });
 
 // Surprise button
-document.getElementById("surpriseBtn").addEventListener("click", () => {
+const surpriseBtn = document.getElementById("surpriseBtn");
+const notesContainer = document.getElementById("notesContainer");
+
+surpriseBtn.addEventListener("click", () => {
   if (notes.length === 0) return;
 
   let index = Math.floor(Math.random() * notes.length);
@@ -15,15 +18,19 @@ document.getElementById("surpriseBtn").addEventListener("click", () => {
 
   if (!shownNotes.includes(note)) shownNotes.push(note);
 
-  const notesContainer = document.getElementById("notesContainer");
-  notesContainer.innerHTML = ""; // show only one note
+  displayNote(note);
+  updateSidebar();
+});
+
+function displayNote(note) {
+  notesContainer.innerHTML = "";
   const noteEl = document.createElement("div");
   noteEl.className = "note";
   noteEl.textContent = note;
   notesContainer.appendChild(noteEl);
-});
+}
 
-/* Hamburger-style revisit button */
+/* Hamburger button */
 const revisitBtn = document.createElement("div");
 revisitBtn.className = "revisit-btn";
 for (let i = 0; i < 3; i++) {
@@ -32,19 +39,28 @@ for (let i = 0; i < 3; i++) {
 }
 document.body.appendChild(revisitBtn);
 
-revisitBtn.addEventListener("click", () => {
-  const notesContainer = document.getElementById("notesContainer");
-  notesContainer.innerHTML = "";
+/* Sidebar */
+const sidebar = document.querySelector(".sidebar");
 
-  shownNotes.forEach(note => {
-    const noteEl = document.createElement("div");
-    noteEl.className = "note";
-    noteEl.textContent = note;
-    notesContainer.appendChild(noteEl);
-  });
+revisitBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
 });
 
-/* --- Stars --- */
+function updateSidebar() {
+  sidebar.innerHTML = "";
+  shownNotes.forEach(note => {
+    const noteItem = document.createElement("div");
+    noteItem.className = "note-item";
+    noteItem.textContent = note;
+    noteItem.addEventListener("click", () => {
+      displayNote(note);
+      sidebar.classList.remove("open");
+    });
+    sidebar.appendChild(noteItem);
+  });
+}
+
+/* Stars */
 const starsContainer = document.querySelector(".stars");
 for (let i = 0; i < 150; i++) {
   const star = document.createElement("div");
@@ -59,7 +75,7 @@ for (let i = 0; i < 150; i++) {
   starsContainer.appendChild(star);
 }
 
-/* --- Butterflies --- */
+/* Butterflies */
 const butterfliesContainer = document.querySelector(".butterflies");
 const colors = ["#ff79c6", "#8be9fd", "#50fa7b", "#f1fa8c", "#ffb86c", "#bd93f9"];
 
@@ -69,10 +85,9 @@ for (let i = 0; i < 12; i++) {
   wrapper.style.left = Math.random() * 100 + "vw";
   wrapper.style.top = "110vh";
 
-  const butterfly = document.createElement("div");
-  butterfly.className = "butterfly";
-  butterfly.textContent = "🦋";
-  butterfly.style.color = colors[Math.floor(Math.random() * colors.length)];
+  const butterfly = document.createElement("img");
+  butterfly.src = "butterfly.svg";
+  butterfly.style.filter = `drop-shadow(0 0 5px ${colors[Math.floor(Math.random() * colors.length)]})`;
 
   const flyDuration = 15 + Math.random() * 10;
   const swayDuration = 3 + Math.random() * 2;
@@ -87,7 +102,7 @@ for (let i = 0; i < 12; i++) {
   butterfliesContainer.appendChild(wrapper);
 }
 
-/* --- Shooting Stars Occasionally --- */
+/* Shooting Stars */
 function createShootingStar() {
   const shootingStar = document.createElement("div");
   shootingStar.className = "shooting-star";
