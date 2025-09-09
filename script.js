@@ -1,5 +1,6 @@
 let notes = [];
 let shownNotes = [];
+let noteIndex = 0;
 
 // Load notes
 fetch('notes.json')
@@ -13,8 +14,8 @@ const notesContainer = document.getElementById("notesContainer");
 surpriseBtn.addEventListener("click", () => {
   if (notes.length === 0) return;
 
-  let index = Math.floor(Math.random() * notes.length);
-  const note = notes[index];
+  const note = notes[noteIndex];
+  noteIndex = (noteIndex + 1) % notes.length;
 
   if (!shownNotes.includes(note)) shownNotes.push(note);
 
@@ -30,7 +31,7 @@ function displayNote(note) {
   notesContainer.appendChild(noteEl);
 }
 
-/* Hamburger button */
+/* Hamburger & sidebar */
 const revisitBtn = document.createElement("div");
 revisitBtn.className = "revisit-btn";
 for (let i = 0; i < 3; i++) {
@@ -39,16 +40,12 @@ for (let i = 0; i < 3; i++) {
 }
 document.body.appendChild(revisitBtn);
 
-/* Sidebar */
 const sidebar = document.querySelector(".sidebar");
-
-revisitBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-});
+revisitBtn.addEventListener("click", () => sidebar.classList.toggle("open"));
 
 function updateSidebar() {
   sidebar.innerHTML = "";
-  shownNotes.forEach(note => {
+  shownNotes.forEach((note) => {
     const noteItem = document.createElement("div");
     noteItem.className = "note-item";
     noteItem.textContent = note;
@@ -77,7 +74,14 @@ for (let i = 0; i < 150; i++) {
 
 /* Butterflies */
 const butterfliesContainer = document.querySelector(".butterflies");
-const colors = ["#ff79c6", "#8be9fd", "#50fa7b", "#f1fa8c", "#ffb86c", "#bd93f9"];
+const colors = [
+  "rgba(255,121,198,0.5)",
+  "rgba(139,233,253,0.5)",
+  "rgba(80,250,123,0.5)",
+  "rgba(241,250,140,0.5)",
+  "rgba(255,184,108,0.5)",
+  "rgba(189,147,249,0.5)"
+];
 
 for (let i = 0; i < 12; i++) {
   const wrapper = document.createElement("div");
@@ -85,9 +89,10 @@ for (let i = 0; i < 12; i++) {
   wrapper.style.left = Math.random() * 100 + "vw";
   wrapper.style.top = "110vh";
 
-  const butterfly = document.createElement("img");
-  butterfly.src = "butterfly.svg";
-  butterfly.style.filter = `drop-shadow(0 0 5px ${colors[Math.floor(Math.random() * colors.length)]})`;
+  const butterfly = document.createElement("div");
+  butterfly.className = "butterfly";
+  butterfly.textContent = "🦋";
+  butterfly.style.color = colors[Math.floor(Math.random() * colors.length)];
 
   const flyDuration = 15 + Math.random() * 10;
   const swayDuration = 3 + Math.random() * 2;
@@ -96,7 +101,7 @@ for (let i = 0; i < 12; i++) {
   butterfly.style.animationDuration = `${swayDuration}s`;
   butterfly.style.animationDelay = `${Math.random() * 2}s`;
 
-  butterfly.style.transform = `scale(${0.8 + Math.random() * 1.5})`;
+  butterfly.style.transform = `scale(${0.7 + Math.random() * 0.8})`;
 
   wrapper.appendChild(butterfly);
   butterfliesContainer.appendChild(wrapper);
