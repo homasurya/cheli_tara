@@ -48,9 +48,13 @@ function updateSidebar() {
   shownNotes.forEach((note) => {
     const noteItem = document.createElement("div");
     noteItem.className = "note-item";
-    noteItem.textContent = note;
+
+    // Show only first 80 characters as preview
+    const preview = note.length > 80 ? note.substring(0, 80) + "…" : note;
+    noteItem.textContent = preview;
+
     noteItem.addEventListener("click", () => {
-      displayNote(note);
+      displayNote(note); // show full note in main container
       sidebar.classList.remove("open");
     });
     sidebar.appendChild(noteItem);
