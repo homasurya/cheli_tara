@@ -58,10 +58,11 @@ body {
   position: absolute;
   animation: fly linear infinite;
 }
-.butterfly-wrapper img {
-  width: 30px;
-  height: 30px;
+.butterfly {
+  font-size: 2rem;
+  display: inline-block;
   animation: sway ease-in-out infinite;
+  text-shadow: 0 0 4px rgba(255,255,255,0.3);
 }
 @keyframes fly {
   from { transform: translateY(110vh); }
